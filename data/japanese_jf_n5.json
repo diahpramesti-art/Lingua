@@ -1,0 +1,438 @@
+{
+    "trackId": "ja",
+    "trackTitle": "Japanese Track (JF & JLPT N5)",
+    "levelTitle": "Level N5: Essential Career & Daily Foundations",
+    "levelDesc": "Kurikulum 10 bab baku mengacu pada standar Japan Foundation (JF) & Minna no Nihongo untuk persiapan ujian JLPT N5 dan komunikasi kerja profesional.",
+    "tutorPersona": "Japanese Language Examiner (N5 Standard)",
+    "lessons": [
+        {
+            "id": "ja_l1",
+            "topic": "LESSON 1",
+            "title": "Perkenalan Diri (Jikoshoukai) & Partikel は / です",
+            "rule": "Pola Dasar: [Subjek] + は (Wa) + [Identitas] + です (Desu). Partikel 'は' menunjuk topik utama.",
+            "examples": "Contoh: 私 は 学生 です (Watashi wa gakusei desu - Saya mahasiswa).",
+            "audioText": "Watashi wa gakusei desu. Hajimemashite.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Saya adalah mahasiswa.",
+                    "blocks": [
+                        "私 (Watashi)",
+                        "は (Wa)",
+                        "学生 (Gakusei)",
+                        "です (Desu)"
+                    ],
+                    "correct": [
+                        "私 (Watashi)",
+                        "は (Wa)",
+                        "学生 (Gakusei)",
+                        "です (Desu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Isi partikel penunjuk subjek: Watashi ___ gakusei desu.",
+                    "template": "Watashi ___ gakusei desu.",
+                    "correct": "wa",
+                    "options": [
+                        "wa",
+                        "ga",
+                        "ni"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Salam kenal (Perkenalan).",
+                    "hint": "Gunakan Romaji: Hajimemashite",
+                    "correct": [
+                        "hajimemashite"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l2",
+            "topic": "LESSON 2",
+            "title": "Kata Tunjuk Benda (Kore, Sore, Are) & Partikel の",
+            "rule": "Kore (ini - dekat pembicara), Sore (itu - dekat lawan bicara), Are (itu - jauh). Partikel 'の' menunjukkan kepemilikan.",
+            "examples": "Contoh: これ は 私 の 本 です (Kore wa watashi no hon desu - Ini buku milik saya).",
+            "audioText": "Kore wa watashi no hon desu.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Ini adalah buku saya.",
+                    "blocks": [
+                        "これ (Kore)",
+                        "は (Wa)",
+                        "私 の (Watashi no)",
+                        "本 です (Hon desu)"
+                    ],
+                    "correct": [
+                        "これ (Kore)",
+                        "は (Wa)",
+                        "私 の (Watashi no)",
+                        "本 です (Hon desu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Ini adalah pulpen milik siapa? (Kore wa dare ___ pen desu ka)",
+                    "template": "Kore wa dare ___ pen desu ka.",
+                    "correct": "no",
+                    "options": [
+                        "no",
+                        "wa",
+                        "mo"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Itu adalah kamus.",
+                    "hint": "Gunakan 'Sore wa jisho desu'",
+                    "correct": [
+                        "sore wa jisho desu"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l3",
+            "topic": "LESSON 3",
+            "title": "Kata Tunjuk Tempat (Koko, Soko, Asoko) & Partikel に",
+            "rule": "Koko (di sini), Soko (di situ), Asoko (di sana). Partikel 'に' atau 'で' menunjukkan keberadaan atau lokasi kegiatan.",
+            "examples": "Contoh: ここ は 教室 です (Koko wa kyoushitsu desu - Di sini adalah ruang kelas).",
+            "audioText": "Koko wa kyoushitsu desu.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Di sini adalah ruang kelas.",
+                    "blocks": [
+                        "ここ (Koko)",
+                        "は (Wa)",
+                        "教室 (Kyoushitsu)",
+                        "です (Desu)"
+                    ],
+                    "correct": [
+                        "ここ (Koko)",
+                        "は (Wa)",
+                        "教室 (Kyoushitsu)",
+                        "です (Desu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Kantor ada di sana. (Jimusho wa ___ desu)",
+                    "template": "Jimusho wa ___ desu.",
+                    "correct": "asoko",
+                    "options": [
+                        "asoko",
+                        "kore",
+                        "doko"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Toilet ada di mana?",
+                    "hint": "Gunakan 'Toire wa doko desu ka'",
+                    "correct": [
+                        "toire wa doko desu ka"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l4",
+            "topic": "LESSON 4",
+            "title": "Kata Kerja Bentuk Sopan (~ます / ~ません) & Waktu に",
+            "rule": "Kata kerja bentuk positif: ~ます (~masu), bentuk negatif: ~ません (~masen). Partikel 'に' mengikuti keterangan waktu spesifik.",
+            "examples": "Contoh: 7時 に 起きます (Shichiji ni okimasu - Bangun jam 7).",
+            "audioText": "Shichiji ni okimasu. Mainichi benkyou shimasu.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Bangun pada jam 7.",
+                    "blocks": [
+                        "7時 に (Shichiji ni)",
+                        "起きます (Okimasu)"
+                    ],
+                    "correct": [
+                        "7時 に (Shichiji ni)",
+                        "起きます (Okimasu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Saya tidak tidur. (Watashi wa ___)",
+                    "template": "Watashi wa nemasen.",
+                    "correct": "nemasen",
+                    "options": [
+                        "nemasen",
+                        "nemasu",
+                        "neru"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Setiap hari belajar.",
+                    "hint": "Gunakan 'Mainichi benkyou shimasu'",
+                    "correct": [
+                        "mainichi benkyou shimasu"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l5",
+            "topic": "LESSON 5",
+            "title": "Perpindahan / Arah (Partikel へ / に / で)",
+            "rule": "Partikel 'へ' (He/E) menunjuk arah tujuan pergerakan (Ikimasu/Kimasu/Kaerimasu). Partikel 'で' menunjuk alat/kendaraan.",
+            "examples": "Contoh: 電車 で 会社 へ 行きます (Densha de kaisha e ikimasu - Pergi ke kantor naik kereta).",
+            "audioText": "Densha de kaisha e ikimasu.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Pergi ke kantor naik kereta.",
+                    "blocks": [
+                        "電車 で (Densha de)",
+                        "会社 へ (Kaisha e)",
+                        "行きます (Ikimasu)"
+                    ],
+                    "correct": [
+                        "電車 で (Densha de)",
+                        "会社 へ (Kaisha e)",
+                        "行きます (Ikimasu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Pulang ke rumah. (Uchi ___ kaerimasu)",
+                    "template": "Uchi ___ kaerimasu.",
+                    "correct": "e",
+                    "options": [
+                        "e",
+                        "de",
+                        "wo"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Pergi ke Jepang.",
+                    "hint": "Gunakan 'Nihon e ikimasu'",
+                    "correct": [
+                        "nihon e ikimasu"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l6",
+            "topic": "LESSON 6",
+            "title": "Objek Langsung (Partikel を) & Tempat Aksi (Partikel で)",
+            "rule": "Partikel 'を' (Wo/O) menunjuk objek langsung dari kata kerja transitif (Tabemasu, Nomimasu, Mimasu).",
+            "examples": "Contoh: レストラン で ご飯 を 食べます (Resutoran de gohan wo tabemasu - Makan nasi di restoran).",
+            "audioText": "Resutoran de gohan wo tabemasu.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Makan nasi di restoran.",
+                    "blocks": [
+                        "レストラン で (Resutoran de)",
+                        "ご飯 を (Gohan wo)",
+                        "食べます (Tabemasu)"
+                    ],
+                    "correct": [
+                        "レストラン で (Resutoran de)",
+                        "ご飯 を (Gohan wo)",
+                        "食べます (Tabemasu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Minum air. (Mizu ___ nomimasu)",
+                    "template": "Mizu ___ nomimasu.",
+                    "correct": "wo",
+                    "options": [
+                        "wo",
+                        "de",
+                        "ni"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Membaca buku.",
+                    "hint": "Gunakan 'Hon wo yomimasu'",
+                    "correct": [
+                        "hon wo yomimasu"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l7",
+            "topic": "LESSON 7",
+            "title": "Pemberian & Alat (Partikel で / に あげます・もらいます)",
+            "rule": "Gunakan 'で' untuk instrumen/bahasa (Nihongo de hanashimasu), 'に' untuk penerima/pemberi aksi.",
+            "examples": "Contoh: 日本語 で 話します (Nihongo de hanashimasu - Berbicara dalam bahasa Jepang).",
+            "audioText": "Nihongo de hanashimasu. Hashi de tabemasu.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Berbicara dalam bahasa Jepang.",
+                    "blocks": [
+                        "日本語 で (Nihongo de)",
+                        "話します (Hanashimasu)"
+                    ],
+                    "correct": [
+                        "日本語 で (Nihongo de)",
+                        "話します (Hanashimasu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Makan menggunakan sumpit. (Hashi ___ tabemasu)",
+                    "template": "Hashi ___ tabemasu.",
+                    "correct": "de",
+                    "options": [
+                        "de",
+                        "wo",
+                        "ni"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Memberi hadiah kepada teman.",
+                    "hint": "Gunakan 'Tomodachi niプレゼント wo agemasu'",
+                    "correct": [
+                        "tomodachi ni purezento wo agemasu",
+                        "tomodachi niプレゼント wo agemasu"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l8",
+            "topic": "LESSON 8",
+            "title": "Kata Sifat (i-Adjective & na-Adjective)",
+            "rule": "Kata Sifat -i (takusai, oishii) langsung menempel pada desu. Kata Sifat -na membutuhkan 'na' jika sebelum kata benda.",
+            "examples": "Contoh: この 料理 は 美味しい です (Kono ryouri wa oishii desu - Masakan ini enak).",
+            "audioText": "Kono ryouri wa oishii desu. Shizuka na heya.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Masakan ini enak.",
+                    "blocks": [
+                        "この 料理 は (Kono ryouri wa)",
+                        "美味しい です (Oishii desu)"
+                    ],
+                    "correct": [
+                        "この 料理 は (Kono ryouri wa)",
+                        "美味しい です (Oishii desu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Kamar yang tenang. (___ na heya)",
+                    "template": "___ na heya.",
+                    "correct": "Shizuka",
+                    "options": [
+                        "Shizuka",
+                        "Takai",
+                        "Oishii"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Bahasa Jepang itu menarik.",
+                    "hint": "Gunakan 'Nihongo wa omoshiroi desu'",
+                    "correct": [
+                        "nihongo wa omoshiroi desu"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l9",
+            "topic": "LESSON 9",
+            "title": "Keberadaan Benda & Orang (います / あります)",
+            "rule": "Imasu (ada) khusus untuk benda hidup (orang, hewan). Arimasu (ada) khusus untuk benda mati/tanaman.",
+            "examples": "Contoh: 部屋 に 先生 が います (Heya ni sensei ga imasu - Di kamar ada guru).",
+            "audioText": "Heya ni sensei ga imasu. Tsukue no ue ni hon ga arimasu.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Di kamar ada guru.",
+                    "blocks": [
+                        "部屋 に (Heya ni)",
+                        "先生 が (Sensei ga)",
+                        "います (Imasu)"
+                    ],
+                    "correct": [
+                        "部屋 に (Heya ni)",
+                        "先生 が (Sensei ga)",
+                        "います (Imasu)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Di atas meja ada buku. (Tsukue no ue ni hon ga ___)",
+                    "template": "Tsukue no ue ni hon ga ___.",
+                    "correct": "arimasu",
+                    "options": [
+                        "arimasu",
+                        "imasu",
+                        "desu"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Di kantor ada siapa?",
+                    "hint": "Gunakan 'Jimusho ni dare ga imasu ka'",
+                    "correct": [
+                        "jimusho ni dare ga imasu ka"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ja_l10",
+            "topic": "LESSON 10",
+            "title": "Instruksi Kerja Formal & Bentuk Permintaan (~てください)",
+            "rule": "Bentuk Te + kudasai digunakan untuk instruksi baku di lingkungan kerja formal atau ujian JLPT (Mite kudasai, Kiite kudasai).",
+            "examples": "Contoh: 日本語 で 話して ニュース を 聞いて ください (Mite kudasai - Tolong lihat).",
+            "audioText": "Mite kudasai. Shizuka ni shite kudasai.",
+            "questions": [
+                {
+                    "type": "reorder",
+                    "target": "Tolong dengarkan.",
+                    "blocks": [
+                        "聞いて (Kiite)",
+                        "ください (Kudasai)"
+                    ],
+                    "correct": [
+                        "聞いて (Kiite)",
+                        "ください (Kudasai)"
+                    ]
+                },
+                {
+                    "type": "fill",
+                    "target": "Tolong tulis di sini. (Koko ni ___ kudasai)",
+                    "template": "Koko ni ___ kudasai.",
+                    "correct": "kaite",
+                    "options": [
+                        "kaite",
+                        "kikimashou",
+                        "kaku"
+                    ]
+                },
+                {
+                    "type": "translate",
+                    "target": "Tolong bicara sekali lagi.",
+                    "hint": "Gunakan 'Mou ichido itte kudasai'",
+                    "correct": [
+                        "mou ichido itte kudasai"
+                    ]
+                }
+            ]
+        }
+    ]
+}

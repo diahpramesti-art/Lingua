@@ -1,0 +1,17 @@
+{
+    "name": "Lingua.",
+    "short_name": "Lingua.",
+    "description": "Platform Belajar Bahasa Interaktif",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#F6F3ED",
+    "theme_color": "#F6F3ED",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='140' fill='%232D2A26'/><text x='50%' y='68%' font-family='serif' font-weight='900' font-size='320' fill='%23F6F3ED' text-anchor='middle'>L</text><circle cx='390' cy='122' r='45' fill='%23C85A32'/></svg>",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- 1. Judul Aplikasi Minimalis -->
+    <title>Lingua.</title>
+
+    <!-- 2. Favicon & Theme Color -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%232D2A26'/><text x='50%' y='68%' font-family='serif' font-weight='900' font-size='62' fill='%23F6F3ED' text-anchor='middle'>L</text><circle cx='76' cy='24' r='9' fill='%23C85A32'/></svg>">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%232D2A26'/><text x='50%' y='68%' font-family='serif' font-weight='900' font-size='62' fill='%23F6F3ED' text-anchor='middle'>L</text><circle cx='76' cy='24' r='9' fill='%23C85A32'/></svg>">
+    <meta name="theme-color" content="#F6F3ED">
+
+    <!-- 3. OPEN GRAPH PREVIEW (WHATSAPP & SOSMED) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://diahpramesti-art.github.io/Lingua/">
+    <meta property="og:title" content="Lingua.">
+    <meta property="og:description" content="Platform belajar bahasa interaktif & latihan mandiri terstruktur.">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lingua.">
+    <meta name="twitter:description" content="Platform belajar bahasa interaktif & latihan mandiri terstruktur.">
+    <meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tactile: {
+                            bg: '#F6F3ED',
+                            card: '#FFFFFF',
+                            border: '#E6E1D7',
+                            ink: '#2D2A26',
+                            muted: '#78726A',
+                            rust: '#C85A32',
+                            rustHover: '#B24E2A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body
+    class="bg-[#F6F3ED] dark:bg-stone-950 text-[#2D2A26] dark:text-stone-100 font-sans min-h-full flex flex-col transition-colors duration-200 select-none">
+
+    <!-- SPLASH SCREEN ELEGAN -->
+    <div id="splashScreen"
+        class="fixed inset-0 z-50 bg-[#F6F3ED] dark:bg-stone-950 flex flex-col items-center justify-center">
+        <div class="flex flex-col items-center gap-2.5 select-none">
+            <div
+                class="w-14 h-14 rounded-2xl bg-[#2D2A26] dark:bg-stone-100 text-[#F6F3ED] dark:text-stone-900 font-serif font-black text-2xl flex items-center justify-center border-2 border-[#2D2A26] dark:border-stone-100 shadow-[4px_4px_0px_#C85A32]">
+                L
+            </div>
+            <span class="text-2xl font-serif tracking-tight text-[#2D2A26] dark:text-stone-100">
+                <span class="font-black">Ling</span><span class="italic font-serif text-[#C85A32]">ua</span><span
+                    class="text-[#C85A32] font-black">.</span>
+            </span>
+            <span class="text-[9px] font-mono tracking-widest text-stone-400 uppercase">Interactive Studio</span>
+        </div>
+    </div>
+
+    <!-- COMPACT ULTRA-CLEAN HEADER -->
+    <header
+        class="bg-[#F6F3ED]/95 dark:bg-stone-950/95 backdrop-blur-md sticky top-0 z-30 h-14 border-b border-stone-200/80 dark:border-stone-800 shrink-0">
+        <div class="max-w-2xl w-full mx-auto h-full px-4 flex items-center justify-between">
+
+            <!-- Logo Header -->
+            <div id="headerLogo" class="flex items-center cursor-pointer" onclick="switchTab('roadmap')">
+                <span class="text-base font-serif tracking-tight text-[#2D2A26] dark:text-stone-100">
+                    <span class="font-black">Ling</span><span class="italic font-serif text-[#C85A32]">ua</span><span
+                        class="text-[#C85A32] font-black">.</span>
+                </span>
+            </div>
+
+            <!-- Controls Header Ringkas -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <div id="dailyGoalBadge"
+                    class="hidden sm:inline-block px-2.5 py-1 bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 font-mono text-[9px] font-bold rounded-lg border border-stone-200 dark:border-stone-800">
+                    0/5 Target
+                </div>
+
+                <button onclick="openScriptModal()"
+                    class="px-2.5 py-1 bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 font-mono text-[9px] font-bold rounded-lg border border-stone-200 dark:border-stone-800 flex items-center gap-1 btn-tactile">
+                    <i class="fa-solid fa-font text-[#C85A32]"></i> Aksara
+                </button>
+
+                <select id="trackSelector" onchange="changeTrack(this.value)"
+                    class="bg-white dark:bg-stone-900 text-stone-800 dark:text-stone-200 text-[10px] font-semibold rounded-lg px-2 py-1 border border-stone-200 dark:border-stone-800 focus:outline-none cursor-pointer">
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="ja">🇯🇵 JA</option>
+                </select>
+
+                <button onclick="openApiKeyModal()"
+                    class="w-7 h-7 rounded-lg bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-700 dark:text-stone-300 flex items-center justify-center btn-tactile">
+                    <i class="fa-solid fa-key text-[10px] text-amber-600"></i>
+                </button>
+
+                <button onclick="toggleDarkMode()"
+                    class="w-7 h-7 rounded-lg bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-700 dark:text-stone-300 flex items-center justify-center btn-tactile">
+                    <i id="themeIcon" class="fa-solid fa-moon text-[10px]"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- DESKTOP TOP CREATIVE SEGMENTED NAV -->
+    <nav class="hidden md:block sticky top-14 z-20 py-3 bg-[#F6F3ED]/80 dark:bg-stone-950/80 backdrop-blur-xs">
+        <div class="max-w-2xl w-full mx-auto px-4">
+            <div
+                class="max-w-md mx-auto bg-white dark:bg-stone-900 p-1.5 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm flex justify-between gap-1">
+                <button onclick="switchTab('roadmap')" id="tab-desktop-roadmap"
+                    class="tab-desktop-btn flex-1 py-1.5 text-xs font-serif font-bold rounded-xl transition bg-[#C85A32] text-white shadow-xs">
+                    <i class="fa-solid fa-map-location-dot mr-1 text-[10px]"></i> Kurikulum
+                </button>
+                <button onclick="switchTab('practice')" id="tab-desktop-practice"
+                    class="tab-desktop-btn flex-1 py-1.5 text-xs font-serif font-bold rounded-xl transition text-stone-500 hover:text-stone-900 dark:text-stone-300 dark:hover:text-white">
+                    <i class="fa-solid fa-book-open mr-1 text-[10px]"></i> Latihan
+                </button>
+                <button onclick="switchTab('tutor')" id="tab-desktop-tutor"
+                    class="tab-desktop-btn flex-1 py-1.5 text-xs font-serif font-bold rounded-xl transition text-stone-500 hover:text-stone-900 dark:text-stone-300 dark:hover:text-white">
+                    <i class="fa-solid fa-comments mr-1 text-[10px]"></i> AI Tutor
+                </button>
+                <button onclick="switchTab('vault')" id="tab-desktop-vault"
+                    class="tab-desktop-btn flex-1 py-1.5 text-xs font-serif font-bold rounded-xl transition text-stone-500 hover:text-stone-900 dark:text-stone-300 dark:hover:text-white">
+                    <i class="fa-solid fa-box-archive mr-1 text-[10px]"></i> Jurnal (<span
+                        id="vaultCountDesktop">0</span>)
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CLEAN FLOATING MOBILE BOTTOM DOCK -->
+    <nav
+        class="md:hidden fixed bottom-3 left-4 right-4 z-40 mobile-curved-nav flex items-center justify-around pb-safe">
+        <button onclick="switchTab('roadmap')" id="tab-mobile-roadmap" class="tab-mobile-btn nav-bubble-item active">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-map-location-dot text-sm"></i>
+            </div>
+            <span class="text-[9px] font-serif font-bold text-[#C85A32]">Kurikulum</span>
+        </button>
+
+        <button onclick="switchTab('practice')" id="tab-mobile-practice" class="tab-mobile-btn nav-bubble-item">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-book-open text-sm"></i>
+            </div>
+            <span class="text-[9px] font-serif font-bold text-stone-400">Latihan</span>
+        </button>
+
+        <button onclick="switchTab('tutor')" id="tab-mobile-tutor" class="tab-mobile-btn nav-bubble-item">
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-comments text-sm"></i>
+            </div>
+            <span class="text-[9px] font-serif font-bold text-stone-400">AI Tutor</span>
+        </button>
+
+        <!-- TOMBOL JURNAL MOBILE (BADGE OTOMATIS HIDDEN JIKA 0) -->
+        <button onclick="switchTab('vault')" id="tab-mobile-vault" class="tab-mobile-btn nav-bubble-item">
+            <div class="icon-wrapper relative">
+                <i class="fa-solid fa-box-archive text-sm"></i>
+                <span id="vaultBadgeMobile"
+                    class="hidden absolute top-0 right-0 bg-[#C85A32] text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none shadow-xs">0</span>
+            </div>
+            <span class="text-[9px] font-serif font-bold text-stone-400">Jurnal</span>
+        </button>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 max-w-2xl w-full mx-auto p-4 pb-28 md:pb-12">
+        <!-- TAB 1: ROADMAP -->
+        <div id="view-roadmap" class="space-y-4">
+            <div
+                class="bg-white dark:bg-stone-900 rounded-3xl p-5 border-1.5 border-[#2D2A26] dark:border-stone-700 box-shadow-tactile">
+                <span
+                    class="inline-block bg-[#C85A32] text-white text-[9px] font-mono font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider mb-2"
+                    id="roadmapTrackBadge">English Track</span>
+                <h2 class="text-xl font-serif font-bold text-[#2D2A26] dark:text-stone-100" id="roadmapTitle">Level A1:
+                    Pre-IELTS Foundation</h2>
+                <p class="text-stone-500 dark:text-stone-400 text-xs mt-1 font-serif leading-relaxed" id="roadmapDesc">
+                    Kuasai pola kalimat baku dan tenses dasar.</p>
+            </div>
+
+            <div class="bg-white/60 dark:bg-stone-900/50 rounded-2xl p-4 border border-[#E6E1D7] dark:border-stone-800">
+                <h3
+                    class="text-xs font-serif font-bold mb-3 text-stone-700 dark:text-stone-300 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-[#C85A32]"></i> Modul Belajar
+                </h3>
+                <div id="lessonListContainer" class="space-y-2.5"></div>
+            </div>
+        </div>
+
+        <!-- TAB 2: PRACTICE -->
+        <div id="view-practice" class="hidden my-auto py-1">
+            <div class="focus-deck-card rounded-2xl p-3.5 sm:p-5 space-y-3 max-w-xl mx-auto shadow-sm">
+
+                <!-- Top Meta Bar -->
+                <div class="flex justify-between items-center pb-2 border-b border-stone-100 dark:border-stone-800">
+                    <div class="flex items-center gap-1.5">
+                        <span
+                            class="text-[9px] font-mono font-bold text-[#C85A32] bg-rose-50 dark:bg-rose-950/40 px-2 py-0.5 rounded-full uppercase tracking-wider"
+                            id="practiceLessonTopic">LESSON 1</span>
+                        <button id="romajiToggleBtn" onclick="toggleRomaji()"
+                            class="px-2 py-0.5 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 font-mono text-[8px] font-bold rounded-full btn-tactile">
+                            Romaji ON
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-1.5">
+                        <span id="streakCounterText" class="text-[10px] font-serif font-bold text-[#C85A32]">0/3
+                            Streak</span>
+                        <div
+                            class="w-12 bg-stone-100 dark:bg-stone-800 h-1.5 rounded-full overflow-hidden border border-stone-200 dark:border-stone-700">
+                            <div id="streakProgressBar" class="bg-[#C85A32] h-full w-0 transition-all duration-300">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collapsible Micro-Theory Drawer -->
+                <details
+                    class="group bg-stone-50 dark:bg-stone-900 rounded-xl border border-stone-200/80 dark:border-stone-800 overflow-hidden">
+                    <summary
+                        class="flex items-center justify-between p-2.5 cursor-pointer text-[11px] font-serif font-bold text-stone-700 dark:text-stone-300 select-none">
+                        <span class="flex items-center gap-1.5 truncate">
+                            <i class="fa-solid fa-lightbulb text-amber-500 text-[10px]"></i>
+                            <span id="practiceLessonTitle" class="truncate">Subject Pronouns</span>
+                        </span>
+                        <i
+                            class="fa-solid fa-chevron-down text-[9px] text-stone-400 group-open:rotate-180 transition-transform ml-1"></i>
+                    </summary>
+                    <div
+                        class="p-3 pt-1 border-t border-stone-200/60 dark:border-stone-800/60 space-y-1.5 text-xs font-serif">
+                        <p class="text-stone-600 dark:text-stone-300 leading-relaxed text-[11px]"
+                            id="microConceptRuleText"></p>
+                        <div class="text-[10px] text-stone-500 dark:text-stone-400 bg-white dark:bg-stone-950 p-2 rounded-lg border border-stone-200/60 dark:border-stone-800"
+                            id="microConceptExamples"></div>
+                    </div>
+                </details>
+
+                <!-- Center Focus Target Sentence -->
+                <div class="py-1 text-center space-y-1">
+                    <div class="flex items-center justify-center gap-1.5">
+                        <span id="scaffoldingStageBadge"
+                            class="text-[8px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-stone-800 text-amber-900 dark:text-amber-300">Step
+                            A</span>
+
+                        <div class="flex items-center gap-1">
+                            <div id="audioWaveIndicator" class="hidden flex items-end gap-0.5 h-3 px-1">
+                                <span class="w-0.5 bg-[#C85A32] rounded-full animate-wave-1"></span>
+                                <span class="w-0.5 bg-[#C85A32] rounded-full animate-wave-2"></span>
+                                <span class="w-0.5 bg-[#C85A32] rounded-full animate-wave-3"></span>
+                            </div>
+                            <button id="speedToggleBtn" onclick="toggleAudioSpeed()"
+                                class="px-1.5 py-0.5 bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-[#C85A32] font-mono text-[8px] font-bold rounded-md btn-tactile">1.0x</button>
+                            <button id="audioPlayBtn"
+                                onclick="playAudioText(document.getElementById('questionTargetPrompt').innerText)"
+                                class="p-1.5 bg-[#C85A32] text-white rounded-lg hover:bg-[#B24E2A] transition btn-tactile">
+                                <i class="fa-solid fa-volume-high text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-[9px] font-mono text-stone-400 uppercase tracking-widest">Kalimat Target</p>
+                    <h3 class="text-base sm:text-lg font-serif font-bold text-[#2D2A26] dark:text-stone-100 px-1"
+                        id="questionTargetPrompt">"-"</h3>
+                </div>
+
+                <!-- Compact Interactive Zone Slot -->
+                <div id="interactionZone"
+                    class="min-h-[75px] flex flex-col items-center justify-center rounded-xl p-2 bg-stone-50/80 dark:bg-stone-900/60 border border-stone-200/80 dark:border-stone-800">
+                </div>
+                <div id="practiceFeedbackBox" class="hidden p-2 rounded-lg text-xs font-serif"></div>
+
+                <!-- Action Footer -->
+                <div class="flex justify-between items-center pt-1">
+                    <button onclick="loadCurrentQuestion()"
+                        class="px-2.5 py-1.5 text-xs font-serif text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 btn-tactile">
+                        <i class="fa-solid fa-rotate-left text-[10px] mr-1"></i> Reset
+                    </button>
+                    <button onclick="submitPracticeAnswer()"
+                        class="px-5 py-2 bg-[#C85A32] text-white rounded-xl font-serif font-bold text-xs hover:bg-[#B24E2A] transition shadow-sm btn-tactile">
+                        Periksa Jawaban <i class="fa-solid fa-arrow-right ml-1 text-[10px]"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 3: TUTOR -->
+        <div id="view-tutor" class="hidden space-y-4">
+            <div
+                class="bg-white dark:bg-stone-900 rounded-2xl p-4 border border-[#E6E1D7] dark:border-stone-800 shadow-tactile flex justify-between items-center">
+                <div>
+                    <span class="text-[9px] font-sans font-bold text-[#C85A32] uppercase tracking-widest">AI 1-on-1
+                        Evaluator</span>
+                    <h2 class="text-base font-serif font-bold text-[#2D2A26] dark:text-stone-100"
+                        id="tutorPersonaTitle">IELTS Examiner Mode</h2>
+                </div>
+                <span id="diagScoreBadge"
+                    class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 px-2.5 py-1 rounded-full font-sans font-bold">Good</span>
+            </div>
+
+            <div
+                class="bg-white dark:bg-stone-900 rounded-2xl border border-[#E6E1D7] dark:border-stone-800 shadow-tactile flex flex-col h-[420px]">
+                <div id="chatMessagesContainer" class="flex-1 p-4 overflow-y-auto space-y-3"></div>
+
+                <div
+                    class="p-3 border-t border-[#E6E1D7] dark:border-stone-800 bg-[#F6F3ED] dark:bg-stone-950 rounded-b-2xl">
+                    <div class="flex items-center gap-2">
+                        <button id="micBtn" onclick="toggleSpeechRecognition()"
+                            class="p-2.5 bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-200 border border-[#E6E1D7] dark:border-stone-800 rounded-xl hover:bg-rose-50 transition shrink-0 btn-tactile"><i
+                                class="fa-solid fa-microphone text-sm"></i></button>
+                        <input type="text" id="chatInput" placeholder="Ketik atau gunakan suara..."
+                            onkeypress="handleChatKeyPress(event)"
+                            class="flex-1 bg-white dark:bg-stone-900 text-xs font-serif border border-[#E6E1D7] dark:border-stone-800 rounded-xl px-3.5 py-2 focus:outline-none focus:ring-1 focus:ring-[#C85A32]">
+                        <button onclick="sendChatMessage()"
+                            class="p-2.5 bg-[#C85A32] text-white rounded-xl hover:bg-[#B24E2A] transition shrink-0 btn-tactile"><i
+                                class="fa-solid fa-paper-plane text-sm"></i></button>
+                    </div>
+                    <p id="speechStatus" class="text-[9px] text-stone-400 mt-1 pl-1 hidden font-serif">Merekam suara...
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="bg-white dark:bg-stone-900 rounded-2xl p-3.5 border border-[#E6E1D7] dark:border-stone-800 text-xs font-serif space-y-1 shadow-tactile">
+                <span class="text-[9px] font-sans font-bold text-stone-400 uppercase tracking-widest block">Catatan
+                    Evaluasi Tata Bahasa:</span>
+                <p id="diagGrammarNotes" class="text-stone-600 dark:text-stone-300">Belum ada evaluasi.</p>
+            </div>
+        </div>
+
+        <!-- TAB 4: VAULT -->
+        <div id="view-vault" class="hidden space-y-4">
+            <div
+                class="bg-white dark:bg-stone-900 rounded-2xl p-4 border border-[#E6E1D7] dark:border-stone-800 shadow-tactile flex justify-between items-center">
+                <div>
+                    <h2 class="text-base font-serif font-bold text-[#2D2A26] dark:text-stone-100">Jurnal Kesalahan</h2>
+                    <p class="text-[10px] font-serif text-stone-400">Peninjauan berkala (Spaced Repetition)</p>
+                </div>
+                <button onclick="clearErrorVault()"
+                    class="text-xs font-serif text-[#C85A32] border border-rose-200 dark:border-stone-800 px-3 py-1.5 rounded-xl hover:bg-rose-50 dark:hover:bg-stone-800 transition btn-tactile"><i
+                        class="fa-solid fa-trash mr-1"></i> Hapus</button>
+            </div>
+            <div id="vaultListContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+        </div>
+    </main>
+
+    <!-- GEMINI API MODAL -->
+    <div id="apiKeyModal"
+        class="fixed inset-0 bg-stone-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div
+            class="bg-white dark:bg-stone-900 rounded-3xl max-w-sm w-full p-6 border border-[#E6E1D7] dark:border-stone-800 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-sm font-serif font-bold text-[#2D2A26] dark:text-stone-100 flex items-center gap-2"><i
+                        class="fa-solid fa-key text-amber-600"></i> Gemini API Key</h3>
+                <button onclick="closeApiKeyModal()" class="text-stone-400 p-1"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <input type="password" id="apiKeyInput" placeholder="Paste API Key di sini..."
+                class="w-full bg-[#F6F3ED] dark:bg-stone-950 border border-[#E6E1D7] dark:border-stone-800 rounded-xl px-3.5 py-2.5 text-xs font-mono focus:outline-none">
+            <div class="flex justify-end space-x-2 pt-1">
+                <button onclick="closeApiKeyModal()"
+                    class="px-3.5 py-2 text-xs font-serif text-stone-500">Batal</button>
+                <button onclick="saveApiKey()"
+                    class="px-5 py-2 bg-[#C85A32] text-white text-xs font-serif font-bold rounded-xl shadow-tactile btn-tactile">Simpan
+                    Key</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT & NUMBERS MODAL -->
+    <div id="scriptModal"
+        class="fixed inset-0 bg-stone-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div
+            class="bg-[#F6F3ED] dark:bg-stone-900 rounded-3xl max-w-lg w-full max-h-[85vh] flex flex-col border border-[#E6E1D7] dark:border-stone-800 shadow-2xl overflow-hidden">
+            <div
+                class="p-4 bg-white dark:bg-stone-950 border-b border-[#E6E1D7] dark:border-stone-800 flex justify-between items-center">
+                <div>
+                    <span
+                        class="text-[9px] font-sans font-bold text-[#C85A32] uppercase tracking-widest block">REFERENCE
+                        GUIDE</span>
+                    <h3 class="text-base font-serif font-bold text-[#2D2A26] dark:text-stone-100" id="scriptModalTitle">
+                        Panduan Aksara & Angka</h3>
+                </div>
+                <button onclick="closeScriptModal()"
+                    class="text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 p-1"><i
+                        class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div class="p-2 bg-[#EBE6DD] dark:bg-stone-900 flex gap-1 border-b border-[#E6E1D7] dark:border-stone-800 text-xs font-serif font-bold"
+                id="scriptModalTabs"></div>
+
+            <div class="p-4 overflow-y-auto overscroll-contain flex-1 space-y-3" id="scriptModalContent"></div>
+
+            <div class="p-3 bg-white dark:bg-stone-950 border-t border-[#E6E1D7] dark:border-stone-800 text-center">
+                <p class="text-[10px] font-serif text-stone-500"><i
+                        class="fa-solid fa-volume-high text-[#C85A32] mr-1"></i> Tap pada kartu untuk mendengarkan
+                    pengucapan audio.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT MODULES -->
+    <script src="js/speech.js"></script>
+    <script src="js/practice.js"></script>
+    <script src="js/tutor.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
