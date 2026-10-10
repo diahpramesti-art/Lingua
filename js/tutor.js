@@ -91,15 +91,24 @@ async function sendChatMessage() {
         const rulesJSON = JSON.stringify(appState.currentCurriculum);
         const prompt = `Anda adalah ${appState.currentCurriculum.tutorPersona}. Evaluasi input pengguna HANYA berdasarkan aturan tata bahasa JSON ini: ${rulesJSON}. 
     Pengguna berkata: "${msg}". 
-    Berikan respon dalam format JSON murni: {"response": "balasan percakapan", "score": "Good/Needs Practice", "notes": "catatan tata bahasa singkat", "correction": "versi kalimat yang lebih sempurna"}`;
+    Berikan respon dalam format JSON murni tanpa markdown formatting: {"response": "balasan percakapan", "score": "Good/Needs Practice", "notes": "catatan tata bahasa singkat", "correction": "versi kalimat yang lebih sempurna"}`;
 
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${appState.apiKey}`, {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${appState.apiKey.trim()}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
         });
 
         const data = await res.json();
+
+        // Penanganan jika API Key tidak valid atau limit habis
+        if (!res.ok || data.error) {
+            const errMsg = data.error?.message || 'Gagal terhubung ke Gemini API.';
+            await addChatMessageStream('ai', `[Eror API]: ${errMsg}`);
+            if (notesEl) notesEl.innerText = 'Periksa kembali Gemini API Key Anda pada menu ikon kunci di atas.';
+            return;
+        }
+
         const rawText = data.candidates[0].content.parts[0].text;
         const cleanJSON = JSON.parse(rawText.replace(/```json|```/g, '').trim());
 
@@ -114,7 +123,8 @@ async function sendChatMessage() {
         }
 
     } catch (err) {
-        await addChatMessageStream('ai', 'Terjadi kendala koneksi API. Mohon periksa kembali Gemini API Key Anda.');
+        console.error("Gemini Fetch Error:", err);
+        await addChatMessageStream('ai', 'Terjadi kendala koneksi atau format respon API. Mohon periksa kembali API Key Anda.');
     }
 }
 
