@@ -93,7 +93,7 @@ async function sendChatMessage() {
     Pengguna berkata: "${msg}". 
     Berikan respon dalam format JSON murni tanpa markdown formatting: {"response": "balasan percakapan", "score": "Good/Needs Practice", "notes": "catatan tata bahasa singkat", "correction": "versi kalimat yang lebih sempurna"}`;
 
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${appState.apiKey.trim()}`, {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${encodeURIComponent(appState.apiKey.trim())}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
