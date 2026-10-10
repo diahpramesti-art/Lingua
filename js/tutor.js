@@ -77,7 +77,9 @@ async function sendChatMessage() {
     const notesEl = document.getElementById('diagGrammarNotes');
     if (notesEl) notesEl.innerText = 'Menganalisis tata bahasa...';
 
-    if (!appState.apiKey) {
+    // Cek keberadaan API Key
+    const cleanKey = appState.apiKey ? appState.apiKey.trim() : '';
+    if (!cleanKey) {
         setTimeout(async () => {
             const fallbackResp = `Jawaban Anda memuat susunan kalimat yang baik. Catatan: Selalu perhatikan keselarasan subjek dan kata kerja baku. Ada frasa lain yang ingin dicoba?`;
             await addChatMessageStream('ai', fallbackResp);
@@ -91,9 +93,12 @@ async function sendChatMessage() {
         const rulesJSON = JSON.stringify(appState.currentCurriculum);
         const prompt = `Anda adalah ${appState.currentCurriculum.tutorPersona}. Evaluasi input pengguna HANYA berdasarkan aturan tata bahasa JSON ini: ${rulesJSON}. 
     Pengguna berkata: "${msg}". 
-    Berikan respon dalam format JSON murni tanpa markdown formatting: {"response": "balasan percakapan", "score": "Good/Needs Practice", "notes": "catatan tata bahasa singkat", "correction": "versi kalimat yang lebih sempurna"}`;
+    Berikan respon dalam format JSON murni tanpa formatting markdown: {"response": "balasan percakapan", "score": "Good/Needs Practice", "notes": "catatan tata bahasa singkat", "correction": "versi kalimat yang lebih sempurna"}`;
 
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${encodeURIComponent(appState.apiKey.trim())}`, {
+        // Menggunakan model 'gemini-2.5-flash'
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(cleanKey)}`;
+
+        const res = await fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
@@ -101,7 +106,7 @@ async function sendChatMessage() {
 
         const data = await res.json();
 
-        // Penanganan jika API Key tidak valid atau limit habis
+        // Penanganan eror jika API key ditolak atau limit habis
         if (!res.ok || data.error) {
             const errMsg = data.error?.message || 'Gagal terhubung ke Gemini API.';
             await addChatMessageStream('ai', `[Eror API]: ${errMsg}`);
