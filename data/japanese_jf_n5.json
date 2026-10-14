@@ -6,10 +6,12 @@
     "tutorPersona": "Japanese Language Examiner (N5 Standard)",
     "lessons": [
         {
+            "day": 1,
             "id": "ja_l1",
-            "topic": "LESSON 1",
+            "topic": "LESSON 1 (DAY 1)",
             "title": "Perkenalan Diri (Jikoshoukai) & Partikel は / です",
             "rule": "Pola Dasar: [Subjek] + は (Wa) + [Identitas] + です (Desu). Partikel 'は' menunjuk topik utama.",
+            "bossScenario": "Simulasi Jikoshoukai: Ucapkan salam kenal (Hajimemashite), sebutkan nama dan statusmu sebagai mahasiswa.",
             "examples": "Contoh: 私 は 学生 です (Watashi wa gakusei desu - Saya mahasiswa).",
             "audioText": "Watashi wa gakusei desu. Hajimemashite.",
             "questions": [
@@ -51,10 +53,12 @@
             ]
         },
         {
+            "day": 2,
             "id": "ja_l2",
-            "topic": "LESSON 2",
+            "topic": "LESSON 2 (DAY 2)",
             "title": "Kata Tunjuk Benda (Kore, Sore, Are) & Partikel の",
             "rule": "Kore (ini - dekat pembicara), Sore (itu - dekat lawan bicara), Are (itu - jauh). Partikel 'の' menunjukkan kepemilikan.",
+            "bossScenario": "Pemeriksaan Barang Milik: Sebutkan benda yang sedang kamu bawa dan nyatakan bahwa itu milikmu.",
             "examples": "Contoh: これ は 私 の 本 です (Kore wa watashi no hon desu - Ini buku milik saya).",
             "audioText": "Kore wa watashi no hon desu.",
             "questions": [
@@ -96,10 +100,12 @@
             ]
         },
         {
+            "day": 3,
             "id": "ja_l3",
-            "topic": "LESSON 3",
+            "topic": "LESSON 3 (DAY 3)",
             "title": "Kata Tunjuk Tempat (Koko, Soko, Asoko) & Partikel に",
             "rule": "Koko (di sini), Soko (di situ), Asoko (di sana). Partikel 'に' atau 'で' menunjukkan keberadaan atau lokasi kegiatan.",
+            "bossScenario": "Petunjuk Lokasi Gedung: Beritahukan di mana lokasi ruang kelas, kantor, atau fasilitas umum.",
             "examples": "Contoh: ここ は 教室 です (Koko wa kyoushitsu desu - Di sini adalah ruang kelas).",
             "audioText": "Koko wa kyoushitsu desu.",
             "questions": [
@@ -141,10 +147,12 @@
             ]
         },
         {
+            "day": 4,
             "id": "ja_l4",
-            "topic": "LESSON 4",
+            "topic": "LESSON 4 (DAY 4)",
             "title": "Kata Kerja Bentuk Sopan (~ます / ~ません) & Waktu に",
             "rule": "Kata kerja bentuk positif: ~ます (~masu), bentuk negatif: ~ません (~masen). Partikel 'に' mengikuti keterangan waktu spesifik.",
+            "bossScenario": "Wawancara Jadwal Harian: Sebutkan jam berapa kamu bangun tidur dan aktivitas belajarmu sehari-hari.",
             "examples": "Contoh: 7時 に 起きます (Shichiji ni okimasu - Bangun jam 7).",
             "audioText": "Shichiji ni okimasu. Mainichi benkyou shimasu.",
             "questions": [
@@ -182,10 +190,12 @@
             ]
         },
         {
+            "day": 5,
             "id": "ja_l5",
-            "topic": "LESSON 5",
+            "topic": "LESSON 5 (DAY 5)",
             "title": "Perpindahan / Arah (Partikel へ / に / で)",
             "rule": "Partikel 'へ' (He/E) menunjuk arah tujuan pergerakan (Ikimasu/Kimasu/Kaerimasu). Partikel 'で' menunjuk alat/kendaraan.",
+            "bossScenario": "Rencana Transportasi Kerja: Jelaskan transportasi apa yang kamu pakai untuk pergi ke kantor/sekolah atau ke Jepang.",
             "examples": "Contoh: 電車 で 会社 へ 行きます (Densha de kaisha e ikimasu - Pergi ke kantor naik kereta).",
             "audioText": "Densha de kaisha e ikimasu.",
             "questions": [
@@ -225,10 +235,12 @@
             ]
         },
         {
+            "day": 6,
             "id": "ja_l6",
-            "topic": "LESSON 6",
+            "topic": "LESSON 6 (DAY 6)",
             "title": "Objek Langsung (Partikel を) & Tempat Aksi (Partikel で)",
             "rule": "Partikel 'を' (Wo/O) menunjuk objek langsung dari kata kerja transitif (Tabemasu, Nomimasu, Mimasu).",
+            "bossScenario": "Aktivitas di Tempat Umum: Ceritakan apa yang kamu makan/minum dan lokasi tempat kamu membaca buku.",
             "examples": "Contoh: レストラン で ご飯 を 食べます (Resutoran de gohan wo tabemasu - Makan nasi di restoran).",
             "audioText": "Resutoran de gohan wo tabemasu.",
             "questions": [
@@ -268,10 +280,12 @@
             ]
         },
         {
+            "day": 7,
             "id": "ja_l7",
-            "topic": "LESSON 7",
+            "topic": "LESSON 7 (DAY 7)",
             "title": "Pemberian & Alat (Partikel で / に あげます・もらいます)",
             "rule": "Gunakan 'で' untuk instrumen/bahasa (Nihongo de hanashimasu), 'に' untuk penerima/pemberi aksi.",
+            "bossScenario": "Interaksi & Komunikasi Kerja: Katakan bahwa kamu berbicara dalam bahasa Jepang dan memberi hadiah kepada teman.",
             "examples": "Contoh: 日本語 で 話します (Nihongo de hanashimasu - Berbicara dalam bahasa Jepang).",
             "audioText": "Nihongo de hanashimasu. Hashi de tabemasu.",
             "questions": [
@@ -310,10 +324,12 @@
             ]
         },
         {
+            "day": 8,
             "id": "ja_l8",
-            "topic": "LESSON 8",
+            "topic": "LESSON 8 (DAY 8)",
             "title": "Kata Sifat (i-Adjective & na-Adjective)",
             "rule": "Kata Sifat -i (takusai, oishii) langsung menempel pada desu. Kata Sifat -na membutuhkan 'na' jika sebelum kata benda.",
+            "bossScenario": "Ulasan Fasilitas & Kuliner: Berikan kesanmu tentang rasa masakan dan suasana tenang di kamarmu.",
             "examples": "Contoh: この 料理 は 美味しい です (Kono ryouri wa oishii desu - Masakan ini enak).",
             "audioText": "Kono ryouri wa oishii desu. Shizuka na heya.",
             "questions": [
@@ -351,10 +367,12 @@
             ]
         },
         {
+            "day": 9,
             "id": "ja_l9",
-            "topic": "LESSON 9",
+            "topic": "LESSON 9 (DAY 9)",
             "title": "Keberadaan Benda & Orang (います / あります)",
             "rule": "Imasu (ada) khusus untuk benda hidup (orang, hewan). Arimasu (ada) khusus untuk benda mati/tanaman.",
+            "bossScenario": "Laporan Situasi Ruangan: Jelaskan siapa yang berada di dalam ruangan dan barang apa yang ada di atas meja.",
             "examples": "Contoh: 部屋 に 先生 が います (Heya ni sensei ga imasu - Di kamar ada guru).",
             "audioText": "Heya ni sensei ga imasu. Tsukue no ue ni hon ga arimasu.",
             "questions": [
@@ -394,10 +412,12 @@
             ]
         },
         {
+            "day": 10,
             "id": "ja_l10",
-            "topic": "LESSON 10",
+            "topic": "LESSON 10 (DAY 10)",
             "title": "Instruksi Kerja Formal & Bentuk Permintaan (~てください)",
             "rule": "Bentuk Te + kudasai digunakan untuk instruksi baku di lingkungan kerja formal atau ujian JLPT (Mite kudasai, Kiite kudasai).",
+            "bossScenario": "Instruksi Kerja Baku N5: Berikan perintah sopan kepada kolega kerja untuk melihat, mendengarkan, atau menulis dokumen.",
             "examples": "Contoh: 日本語 で 話して ニュース を 聞いて ください (Mite kudasai - Tolong lihat).",
             "audioText": "Mite kudasai. Shizuka ni shite kudasai.",
             "questions": [

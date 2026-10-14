@@ -6,133 +6,488 @@
   "tutorPersona": "IELTS Speaking Examiner (CEFR A1)",
   "lessons": [
     {
+      "day": 1,
       "id": "en_l1",
-      "topic": "LESSON 1",
+      "topic": "LESSON 1 (DAY 1)",
       "title": "Subject Pronouns & Simple Present 'To Be'",
       "rule": "Aturan baku: I am, You/We/They are, He/She/It is. Gunakan untuk menyatakan identitas, profesi, atau kondisi.",
+      "bossScenario": "Roleplay perkenalan diri: Sebutkan nama, status/pekerjaan, dan kondisi siap belajarmu saat ini.",
       "examples": "Contoh: 'I am a student' | 'She is a manager' | 'They are ready'",
       "audioText": "I am a student. She is a manager. They are ready.",
       "questions": [
-        { "type": "reorder", "target": "Saya adalah seorang mahasiswa.", "blocks": ["I", "am", "a", "student"], "correct": ["I", "am", "a", "student"] },
-        { "type": "fill", "target": "Dia (perempuan) adalah seorang manajer.", "template": "She ___ a manager.", "correct": "is", "options": ["is", "am", "are"] },
-        { "type": "translate", "target": "Mereka siap.", "hint": "Gunakan 'They' dan 'ready'", "correct": ["they are ready", "they're ready"] }
+        {
+          "type": "reorder",
+          "target": "Saya adalah seorang mahasiswa.",
+          "blocks": [
+            "I",
+            "am",
+            "a",
+            "student"
+          ],
+          "correct": [
+            "I",
+            "am",
+            "a",
+            "student"
+          ]
+        },
+        {
+          "type": "fill",
+          "target": "Dia (perempuan) adalah seorang manajer.",
+          "template": "She ___ a manager.",
+          "correct": "is",
+          "options": [
+            "is",
+            "am",
+            "are"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Mereka siap.",
+          "hint": "Gunakan 'They' dan 'ready'",
+          "correct": [
+            "they are ready",
+            "they're ready"
+          ]
+        }
       ]
     },
     {
+      "day": 2,
       "id": "en_l2",
-      "topic": "LESSON 2",
+      "topic": "LESSON 2 (DAY 2)",
       "title": "Simple Present Action Verbs (SVO Structure)",
       "rule": "Pola SVO: Subjek + Kata Kerja Utama (+s/es untuk He/She/It) + Objek untuk kebiasaan harian.",
+      "bossScenario": "Menceritakan rutinitas harian: Ceritakan tempat kerjamu/sekolahmu dan bahasa yang kamu pelajari.",
       "examples": "Contoh: 'I study English' | 'He works in an office'",
       "audioText": "I study English every day. He works in an office.",
       "questions": [
-        { "type": "reorder", "target": "Saya belajar bahasa Inggris.", "blocks": ["I", "study", "English"], "correct": ["I", "study", "English"] },
-        { "type": "fill", "target": "Dia (laki-laki) bekerja di kantor.", "template": "He ___ in an office.", "correct": "works", "options": ["work", "works", "working"] },
-        { "type": "translate", "target": "Kami membaca buku.", "hint": "Gunakan 'We' dan 'read'", "correct": ["we read a book", "we read books"] }
+        {
+          "type": "reorder",
+          "target": "Saya belajar bahasa Inggris.",
+          "blocks": [
+            "I",
+            "study",
+            "English"
+          ],
+          "correct": [
+            "I",
+            "study",
+            "English"
+          ]
+        },
+        {
+          "type": "fill",
+          "target": "Dia (laki-laki) bekerja di kantor.",
+          "template": "He ___ in an office.",
+          "correct": "works",
+          "options": [
+            "work",
+            "works",
+            "working"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Kami membaca buku.",
+          "hint": "Gunakan 'We' dan 'read'",
+          "correct": [
+            "we read a book",
+            "we read books"
+          ]
+        }
       ]
     },
     {
+      "day": 3,
       "id": "en_l3",
-      "topic": "LESSON 3",
+      "topic": "LESSON 3 (DAY 3)",
       "title": "Present Continuous Tense (Action in Progress)",
       "rule": "Pola: Subjek + To Be (am/is/are) + Verb-ing. Digunakan untuk kejadian yang sedang berlangsung saat ini.",
+      "bossScenario": "Aktivitas real-time: Ceritakan aktivitas yang sedang kamu kerjakan atau dengarkan sekarang.",
       "examples": "Contoh: 'I am writing a report' | 'They are studying now'",
       "audioText": "I am writing a report right now. They are studying.",
       "questions": [
-        { "type": "reorder", "target": "Saya sedang menulis laporan.", "blocks": ["I", "am", "writing", "a", "report"], "correct": ["I", "am", "writing", "a", "report"] },
-        { "type": "fill", "target": "Mereka sedang belajar.", "template": "They ___ studying right now.", "correct": "are", "options": ["is", "are", "am"] },
-        { "type": "translate", "target": "Dia sedang mendengarkan musik.", "hint": "Gunakan 'listening to'", "correct": ["she is listening to music", "he is listening to music"] }
+        {
+          "type": "reorder",
+          "target": "Saya sedang menulis laporan.",
+          "blocks": [
+            "I",
+            "am",
+            "writing",
+            "a",
+            "report"
+          ],
+          "correct": [
+            "I",
+            "am",
+            "writing",
+            "a",
+            "report"
+          ]
+        },
+        {
+          "type": "fill",
+          "target": "Mereka sedang belajar.",
+          "template": "They ___ studying right now.",
+          "correct": "are",
+          "options": [
+            "is",
+            "are",
+            "am"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Dia sedang mendengarkan musik.",
+          "hint": "Gunakan 'listening to'",
+          "correct": [
+            "she is listening to music",
+            "he is listening to music"
+          ]
+        }
       ]
     },
     {
+      "day": 4,
       "id": "en_l4",
-      "topic": "LESSON 4",
+      "topic": "LESSON 4 (DAY 4)",
       "title": "Articles (A, An, The) & Singular/Plural Nouns",
       "rule": "Gunakan 'an' sebelum bunyi vokal (a, e, i, o, u) dan 'a' untuk konsonan. Tambahkan -s/-es untuk kata benda jamak.",
+      "bossScenario": "Deskripsi barang sekitar: Sebutkan benda tunggal dan jamak yang kamu miliki di meja kerjamu.",
       "examples": "Contoh: 'an apple', 'a book', 'two computers'",
       "audioText": "I have an apple and two computers.",
       "questions": [
-        { "type": "fill", "target": "Pilih artikel yang tepat: ' Dia membeli ___ apel.'", "template": "He buys ___ apple.", "correct": "an", "options": ["a", "an", "the"] },
-        { "type": "reorder", "target": "Saya memiliki dua komputer.", "blocks": ["I", "have", "two", "computers"], "correct": ["I", "have", "two", "computers"] },
-        { "type": "translate", "target": "Ini adalah sebuah buku.", "hint": "Gunakan 'This is'", "correct": ["this is a book"] }
+        {
+          "type": "fill",
+          "target": "Pilih artikel yang tepat: ' Dia membeli ___ apel.'",
+          "template": "He buys ___ apple.",
+          "correct": "an",
+          "options": [
+            "a",
+            "an",
+            "the"
+          ]
+        },
+        {
+          "type": "reorder",
+          "target": "Saya memiliki dua komputer.",
+          "blocks": [
+            "I",
+            "have",
+            "two",
+            "computers"
+          ],
+          "correct": [
+            "I",
+            "have",
+            "two",
+            "computers"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Ini adalah sebuah buku.",
+          "hint": "Gunakan 'This is'",
+          "correct": [
+            "this is a book"
+          ]
+        }
       ]
     },
     {
+      "day": 5,
       "id": "en_l5",
-      "topic": "LESSON 5",
+      "topic": "LESSON 5 (DAY 5)",
       "title": "Possessive Adjectives (My, Your, His, Her, Their)",
       "rule": "Kata ganti kepemilikan yang wajib diikuti kata benda: my book, your team, his car, her project, their office.",
+      "bossScenario": "Kepemilikan proyek/tim: Jelaskan tentang nama kamu dan kebersihan/kondisi kantor tim kamu.",
       "examples": "Contoh: 'This is my project' | 'Her office is clean'",
       "audioText": "This is my project and her office is clean.",
       "questions": [
-        { "type": "reorder", "target": "Ini adalah proyek saya.", "blocks": ["This", "is", "my", "project"], "correct": ["This", "is", "my", "project"] },
-        { "type": "fill", "target": "Kantor mereka sangat luas.", "template": "___ office is very big.", "correct": "Their", "options": ["Their", "They", "Them"] },
-        { "type": "translate", "target": "Nama saya Diah.", "hint": "Gunakan 'My name'", "correct": ["my name is diah"] }
+        {
+          "type": "reorder",
+          "target": "Ini adalah proyek saya.",
+          "blocks": [
+            "This",
+            "is",
+            "my",
+            "project"
+          ],
+          "correct": [
+            "This",
+            "is",
+            "my",
+            "project"
+          ]
+        },
+        {
+          "type": "fill",
+          "target": "Kantor mereka sangat luas.",
+          "template": "___ office is very big.",
+          "correct": "Their",
+          "options": [
+            "Their",
+            "They",
+            "Them"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Nama saya Diah.",
+          "hint": "Gunakan 'My name'",
+          "correct": [
+            "my name is diah"
+          ]
+        }
       ]
     },
     {
+      "day": 6,
       "id": "en_l6",
-      "topic": "LESSON 6",
+      "topic": "LESSON 6 (DAY 6)",
       "title": "Prepositions of Place & Time (In, On, At)",
       "rule": "At: waktu/lokasi spesifik (at 7 AM, at school). On: hari/permukaan (on Monday, on the table). In: bulan/tahun/ruangan (in May, in the room).",
+      "bossScenario": "Konfirmasi Jadwal & Lokasi: Sebutkan waktu dimulainya rapat dan lokasi tempat kamu tinggal.",
       "examples": "Contoh: 'The meeting is at 9 AM' | 'I live in Indonesia'",
       "audioText": "The meeting is at nine AM on Monday.",
       "questions": [
-        { "type": "fill", "target": "Rapat dimulai jam 9 pagi.", "template": "The meeting starts ___ 9 AM.", "correct": "at", "options": ["at", "in", "on"] },
-        { "type": "reorder", "target": "Buku itu ada di atas meja.", "blocks": ["The", "book", "is", "on", "the", "table"], "correct": ["The", "book", "is", "on", "the", "table"] },
-        { "type": "translate", "target": "Saya tinggal di Indonesia.", "hint": "Gunakan 'live in'", "correct": ["i live in indonesia"] }
+        {
+          "type": "fill",
+          "target": "Rapat dimulai jam 9 pagi.",
+          "template": "The meeting starts ___ 9 AM.",
+          "correct": "at",
+          "options": [
+            "at",
+            "in",
+            "on"
+          ]
+        },
+        {
+          "type": "reorder",
+          "target": "Buku itu ada di atas meja.",
+          "blocks": [
+            "The",
+            "book",
+            "is",
+            "on",
+            "the",
+            "table"
+          ],
+          "correct": [
+            "The",
+            "book",
+            "is",
+            "on",
+            "the",
+            "table"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Saya tinggal di Indonesia.",
+          "hint": "Gunakan 'live in'",
+          "correct": [
+            "i live in indonesia"
+          ]
+        }
       ]
     },
     {
+      "day": 7,
       "id": "en_l7",
-      "topic": "LESSON 7",
+      "topic": "LESSON 7 (DAY 7)",
       "title": "Modal Verb 'Can' for Ability & Requests",
       "rule": "Pola: Subjek + can + Kata Kerja Dasar (Verb 1). Digunakan untuk menyatakan kemampuan atau meminta izin.",
+      "bossScenario": "Pernyataan Kemampuan & Bantuan: Jelaskan kemampuan bahasamu dan minta bantuan rekan kerja.",
       "examples": "Contoh: 'I can speak English' | 'Can you help me?'",
       "audioText": "I can speak English clearly. Can you help me?",
       "questions": [
-        { "type": "reorder", "target": "Saya bisa bicara bahasa Inggris.", "blocks": ["I", "can", "speak", "English"], "correct": ["I", "can", "speak", "English"] },
-        { "type": "fill", "target": "Bisakah Anda membantu saya?", "template": "___ you help me?", "correct": "Can", "options": ["Can", "Do", "Are"] },
-        { "type": "translate", "target": "Dia tidak bisa datang.", "hint": "Gunakan 'cannot' atau 'can't'", "correct": ["she cannot come", "he cannot come", "she can't come", "he can't come"] }
+        {
+          "type": "reorder",
+          "target": "Saya bisa bicara bahasa Inggris.",
+          "blocks": [
+            "I",
+            "can",
+            "speak",
+            "English"
+          ],
+          "correct": [
+            "I",
+            "can",
+            "speak",
+            "English"
+          ]
+        },
+        {
+          "type": "fill",
+          "target": "Bisakah Anda membantu saya?",
+          "template": "___ you help me?",
+          "correct": "Can",
+          "options": [
+            "Can",
+            "Do",
+            "Are"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Dia tidak bisa datang.",
+          "hint": "Gunakan 'cannot' atau 'can't'",
+          "correct": [
+            "she cannot come",
+            "he cannot come",
+            "she can't come",
+            "he can't come"
+          ]
+        }
       ]
     },
     {
+      "day": 8,
       "id": "en_l8",
-      "topic": "LESSON 8",
+      "topic": "LESSON 8 (DAY 8)",
       "title": "Simple Past Tense (Completed Past Actions)",
       "rule": "Gunakan Was/Were untuk kondisi masa lalu, atau Verb-2 (Regular: -ed) untuk kejadian yang sudah selesai.",
+      "bossScenario": "Laporan Kegiatan Kemarin: Ceritakan tempat yang kamu kunjungi dan kegiatan kerjamu kemarin.",
       "examples": "Contoh: 'I visited the museum yesterday' | 'She was busy'",
       "audioText": "I visited the museum yesterday. She was busy.",
       "questions": [
-        { "type": "reorder", "target": "Saya mengunjungi museum kemarin.", "blocks": ["I", "visited", "the", "museum", "yesterday"], "correct": ["I", "visited", "the", "museum", "yesterday"] },
-        { "type": "fill", "target": "Dia dulu sibuk kemarin.", "template": "She ___ busy yesterday.", "correct": "was", "options": ["was", "were", "is"] },
-        { "type": "translate", "target": "Kami bekerja kemarin.", "hint": "Gunakan 'worked'", "correct": ["we worked yesterday"] }
+        {
+          "type": "reorder",
+          "target": "Saya mengunjungi museum kemarin.",
+          "blocks": [
+            "I",
+            "visited",
+            "the",
+            "museum",
+            "yesterday"
+          ],
+          "correct": [
+            "I",
+            "visited",
+            "the",
+            "museum",
+            "yesterday"
+          ]
+        },
+        {
+          "type": "fill",
+          "target": "Dia dulu sibuk kemarin.",
+          "template": "She ___ busy yesterday.",
+          "correct": "was",
+          "options": [
+            "was",
+            "were",
+            "is"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Kami bekerja kemarin.",
+          "hint": "Gunakan 'worked'",
+          "correct": [
+            "we worked yesterday"
+          ]
+        }
       ]
     },
     {
+      "day": 9,
       "id": "en_l9",
-      "topic": "LESSON 9",
+      "topic": "LESSON 9 (DAY 9)",
       "title": "Wh- Questions (What, Where, When, Who, Why, How)",
       "rule": "Struktur pertanyaan: Wh- Word + Auxiliary Verb (do/does/is/are) + Subjek + Kata Kerja Utama.",
+      "bossScenario": "Sesi Tanya Jawab Formal: Jawab pertanyaan pewawancara mengenai nama, tempat tinggal, dan waktu kegiatan.",
       "examples": "Contoh: 'Where do you live?' | 'What is your plan?'",
       "audioText": "Where do you live? What is your daily plan?",
       "questions": [
-        { "type": "reorder", "target": "Di mana kamu tinggal?", "blocks": ["Where", "do", "you", "live?"], "correct": ["Where", "do", "you", "live?"] },
-        { "type": "fill", "target": "Siapa nama kamu?", "template": "___ is your name?", "correct": "What", "options": ["What", "Where", "Who"] },
-        { "type": "translate", "target": "Kapan rapatnya?", "hint": "Gunakan 'When is'", "correct": ["when is the meeting"] }
+        {
+          "type": "reorder",
+          "target": "Di mana kamu tinggal?",
+          "blocks": [
+            "Where",
+            "do",
+            "you",
+            "live?"
+          ],
+          "correct": [
+            "Where",
+            "do",
+            "you",
+            "live?"
+          ]
+        },
+        {
+          "type": "fill",
+          "target": "Siapa nama kamu?",
+          "template": "___ is your name?",
+          "correct": "What",
+          "options": [
+            "What",
+            "Where",
+            "Who"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Kapan rapatnya?",
+          "hint": "Gunakan 'When is'",
+          "correct": [
+            "when is the meeting"
+          ]
+        }
       ]
     },
     {
+      "day": 10,
       "id": "en_l10",
-      "topic": "LESSON 10",
+      "topic": "LESSON 10 (DAY 10)",
       "title": "Adjectives & Basic Professional Vocabulary",
       "rule": "Kata sifat diletakkan SEBELUM kata benda: 'a clean room', 'an efficient system', 'a successful project'.",
+      "bossScenario": "Evaluasi Akhir Level A1: Deskripsikan kualitas laporan kerja dan sistem yang sedang dijalankan timmu.",
       "examples": "Contoh: 'This is a successful project' | 'The analysis is clear'",
       "audioText": "This is an efficient system and a successful project.",
       "questions": [
-        { "type": "reorder", "target": "Ini adalah sistem yang efisien.", "blocks": ["This", "is", "an", "efficient", "system"], "correct": ["This", "is", "an", "efficient", "system"] },
-        { "type": "fill", "target": "Proyek itu sangat sukses.", "template": "The project is very ___.", "correct": "successful", "options": ["successful", "success", "succeed"] },
-        { "type": "translate", "target": "Laporannya sangat jelas.", "hint": "Gunakan 'The report' dan 'clear'", "correct": ["the report is very clear", "the report is clear"] }
+        {
+          "type": "reorder",
+          "target": "Ini adalah sistem yang efisien.",
+          "blocks": [
+            "This",
+            "is",
+            "an",
+            "efficient",
+            "system"
+          ],
+          "correct": [
+            "This",
+            "is",
+            "an",
+            "efficient",
+            "system"
+          ]
+        },
+        {
+          "type": "fill",
+          "target": "Proyek itu sangat sukses.",
+          "template": "The project is very ___.",
+          "correct": "successful",
+          "options": [
+            "successful",
+            "success",
+            "succeed"
+          ]
+        },
+        {
+          "type": "translate",
+          "target": "Laporannya sangat jelas.",
+          "hint": "Gunakan 'The report' dan 'clear'",
+          "correct": [
+            "the report is very clear",
+            "the report is clear"
+          ]
+        }
       ]
     }
   ]

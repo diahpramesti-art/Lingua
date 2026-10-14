@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AI TUTOR 1-ON-1 ENGINE (GEMINI API) - LIVE TYPEWRITER STREAMING
+   AI TUTOR 1-ON-1 ENGINE & AI BOSS LEVEL EVALUATOR (GEMINI API)
    ========================================================================== */
 
 function initTutorChat() {
@@ -22,8 +22,8 @@ function addChatMessage(role, text) {
 
     div.innerHTML = `
     <div class="max-w-[85%] rounded-2xl p-4 text-sm leading-relaxed ${role === 'user'
-            ? 'bg-rose-700 text-white font-sans rounded-br-none shadow-sm'
-            : 'bg-stone-200/70 dark:bg-slate-800 text-stone-900 dark:text-stone-100 font-serif rounded-bl-none border border-stone-300 dark:border-slate-700'
+            ? 'bg-[#C85A32] text-white font-sans rounded-br-none shadow-sm'
+            : 'bg-stone-200/70 dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-serif rounded-bl-none border border-stone-300 dark:border-stone-700'
         }">
       ${text}
     </div>
@@ -44,7 +44,7 @@ async function addChatMessageStream(role, fullText) {
     div.className = `flex justify-start`;
 
     const bubble = document.createElement('div');
-    bubble.className = `max-w-[85%] rounded-2xl p-4 text-sm leading-relaxed bg-stone-200/70 dark:bg-slate-800 text-stone-900 dark:text-stone-100 font-serif rounded-bl-none border border-stone-300 dark:border-slate-700`;
+    bubble.className = `max-w-[85%] rounded-2xl p-4 text-sm leading-relaxed bg-stone-200/70 dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-serif rounded-bl-none border border-stone-300 dark:border-stone-700`;
     div.appendChild(bubble);
     container.appendChild(div);
 
@@ -66,6 +66,23 @@ async function addChatMessageStream(role, fullText) {
     });
 }
 
+/* Memulai Tantangan AI Boss Level untuk Hari Tertentu */
+function startBossLevel(lessonIdx) {
+    appState.currentLessonIndex = lessonIdx;
+    appState.isBossChallenge = true;
+
+    const lesson = appState.currentCurriculum.lessons[lessonIdx];
+    switchTab('tutor');
+
+    document.getElementById('tutorPersonaTitle').innerText = `⚡ Boss Challenge: Hari ${lesson.day || lessonIdx + 1}`;
+
+    const chatContainer = document.getElementById('chatMessagesContainer');
+    if (chatContainer) chatContainer.innerHTML = '';
+
+    const scenarioText = lesson.bossScenario || "Mari uji pemahaman percakapan Anda untuk materi hari ini.";
+    addChatMessageStream('ai', `🎯 [TANTANGAN HARI ${lesson.day || lessonIdx + 1}]: ${scenarioText}\n\nSilakan ketik tanggapan pertama Anda!`);
+}
+
 async function sendChatMessage() {
     const input = document.getElementById('chatInput');
     const msg = input.value.trim();
@@ -77,7 +94,6 @@ async function sendChatMessage() {
     const notesEl = document.getElementById('diagGrammarNotes');
     if (notesEl) notesEl.innerText = 'Menganalisis tata bahasa...';
 
-    // Cek keberadaan API Key
     const cleanKey = appState.apiKey ? appState.apiKey.trim() : '';
     if (!cleanKey) {
         setTimeout(async () => {
@@ -90,12 +106,13 @@ async function sendChatMessage() {
     }
 
     try {
-        const rulesJSON = JSON.stringify(appState.currentCurriculum);
-        const prompt = `Anda adalah ${appState.currentCurriculum.tutorPersona}. Evaluasi input pengguna HANYA berdasarkan aturan tata bahasa JSON ini: ${rulesJSON}. 
+        const lesson = appState.currentCurriculum.lessons[appState.currentLessonIndex];
+        const rulesJSON = JSON.stringify(lesson);
+
+        const prompt = `Anda adalah ${appState.currentCurriculum.tutorPersona}. Evaluasi input pengguna HANYA berdasarkan aturan tata bahasa dan skenario JSON ini: ${rulesJSON}. 
     Pengguna berkata: "${msg}". 
     Berikan respon dalam format JSON murni tanpa formatting markdown: {"response": "balasan percakapan", "score": "Good/Needs Practice", "notes": "catatan tata bahasa singkat", "correction": "versi kalimat yang lebih sempurna"}`;
 
-        // Menggunakan model 'gemini-3.8-flash'
         const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${encodeURIComponent(cleanKey)}`;
 
         const res = await fetch(endpoint, {
@@ -106,7 +123,6 @@ async function sendChatMessage() {
 
         const data = await res.json();
 
-        // Penanganan eror jika API key ditolak atau limit habis
         if (!res.ok || data.error) {
             const errMsg = data.error?.message || 'Gagal terhubung ke Gemini API.';
             await addChatMessageStream('ai', `[Eror API]: ${errMsg}`);
@@ -123,7 +139,14 @@ async function sendChatMessage() {
         if (document.getElementById('diagScoreBadge')) document.getElementById('diagScoreBadge').innerText = cleanJSON.score;
         if (notesEl) notesEl.innerText = cleanJSON.notes;
 
-        if (cleanJSON.score !== 'Good') {
+        if (cleanJSON.score === 'Good') {
+            const lessonKey = `${appState.track}_${lesson.id}`;
+            if (!appState.completedLessons.includes(lessonKey)) {
+                appState.completedLessons.push(lessonKey);
+                saveUserProgress();
+                renderRoadmap();
+            }
+        } else {
             saveErrorToVault(msg, cleanJSON.notes);
         }
 

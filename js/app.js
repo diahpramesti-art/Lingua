@@ -1,12 +1,13 @@
 /* ==========================================================================
-   GLOBAL APP STATE & CONTROLLER
+   GLOBAL APP STATE & CONTROLLER (PERMANENT PROGRESS & GATED PROGRESSION)
    ========================================================================== */
 let appState = {
-    track: 'en',
+    track: localStorage.getItem('lingua_track') || 'en',
     currentCurriculum: null,
-    currentLessonIndex: 0,
-    currentQuestionIndex: 0,
-    streak: 0,
+    currentLessonIndex: parseInt(localStorage.getItem('lingua_lesson_idx') || '0'),
+    currentQuestionIndex: parseInt(localStorage.getItem('lingua_question_idx') || '0'),
+    streak: parseInt(localStorage.getItem('lingua_streak') || '0'),
+    completedLessons: JSON.parse(localStorage.getItem('lingua_completed_lessons') || '[]'),
     userBlocksSelection: [],
     errorVault: JSON.parse(localStorage.getItem('lingua_errors') || '[]'),
     apiKey: localStorage.getItem('gemini_api_key') || '',
@@ -18,27 +19,60 @@ let appState = {
 };
 
 window.onload = async () => {
+    // Set selector track sesuai simpanan
+    const trackSelect = document.getElementById('trackSelector');
+    if (trackSelect) trackSelect.value = appState.track;
+
     await loadCurriculum(appState.track);
     updateVaultCount();
+    updateDailyGoalUI();
 
     // Register Service Worker PWA
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').catch(() => { });
     }
 
-    // Splash Screen memudar halus setelah 1.2 detik
+    // Splash Screen memudar halus
     setTimeout(() => {
         const splash = document.getElementById('splashScreen');
         if (splash) splash.classList.add('splash-hidden');
     }, 1200);
 };
 
+// Logika Pengecekan Kunci Bab (Hari 1 selalu terbuka, hari berikutnya terbuka jika hari sebelumnya lulus)
+function isDayUnlocked(idx) {
+    if (idx === 0) return true;
+    if (!appState.currentCurriculum || !appState.currentCurriculum.lessons) return false;
+
+    const prevLesson = appState.currentCurriculum.lessons[idx - 1];
+    if (!prevLesson) return false;
+
+    const prevKey = `${appState.track}_${prevLesson.id}`;
+    return appState.completedLessons.includes(prevKey);
+}
+
+// Fungsi menyimpan progress aktivitas pengguna secara otomatis
+function saveUserProgress() {
+    localStorage.setItem('lingua_track', appState.track);
+    localStorage.setItem('lingua_lesson_idx', appState.currentLessonIndex);
+    localStorage.setItem('lingua_question_idx', appState.currentQuestionIndex);
+    localStorage.setItem('lingua_streak', appState.streak);
+    localStorage.setItem('lingua_completed_lessons', JSON.stringify(appState.completedLessons));
+}
+
 async function loadCurriculum(track) {
     try {
         const fileName = track === 'ja' ? 'japanese_jf_n5.json' : 'english_cefr_a1.json';
         const res = await fetch(`./data/${fileName}`);
         appState.currentCurriculum = await res.json();
+
+        // Batasi batas indeks bab jika melampaui total bab
+        if (appState.currentLessonIndex >= appState.currentCurriculum.lessons.length) {
+            appState.currentLessonIndex = 0;
+        }
+
         renderRoadmap();
+        loadCurrentQuestion();
     } catch (err) {
         console.error("Gagal memuat file JSON kurikulum:", err);
     }
@@ -50,12 +84,12 @@ async function changeTrack(newTrack) {
     appState.currentQuestionIndex = 0;
     appState.streak = 0;
 
+    saveUserProgress();
+
     const chatContainer = document.getElementById('chatMessagesContainer');
     if (chatContainer) chatContainer.innerHTML = '';
 
     await loadCurriculum(newTrack);
-
-    loadCurrentQuestion();
     updateStreakUI();
 }
 
@@ -71,25 +105,55 @@ function renderRoadmap() {
     container.innerHTML = '';
 
     data.lessons.forEach((lesson, idx) => {
-        const isCurrent = idx === appState.currentLessonIndex;
+        const lessonKey = `${appState.track}_${lesson.id}`;
+        const isCompleted = appState.completedLessons.includes(lessonKey);
+        const isUnlocked = isDayUnlocked(idx);
+        const isCurrent = idx === appState.currentLessonIndex && isUnlocked;
+
         const div = document.createElement('div');
-        div.className = `p-4 rounded-xl border flex items-center justify-between transition ${isCurrent
-            ? 'bg-amber-50/60 dark:bg-slate-800 border-amber-300 dark:border-slate-700 shadow-paper'
-            : 'bg-stone-100/50 dark:bg-slate-900 border-stone-200 dark:border-slate-800 opacity-70'
+        div.className = `p-4 rounded-2xl border flex items-center justify-between transition ${!isUnlocked
+                ? 'bg-stone-100/40 dark:bg-stone-900/20 border-stone-200/60 dark:border-stone-800/40 opacity-55'
+                : isCurrent
+                    ? 'bg-amber-50/80 dark:bg-stone-900 border-[#C85A32] dark:border-[#C85A32] shadow-sm'
+                    : isCompleted
+                        ? 'bg-emerald-50/50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/60'
+                        : 'bg-stone-100/50 dark:bg-stone-900/40 border-stone-200 dark:border-stone-800'
             }`;
 
         div.innerHTML = `
       <div class="flex items-center space-x-3.5">
-        <div class="w-8 h-8 rounded-lg ${isCurrent ? 'bg-rose-700 text-white' : 'bg-stone-300 dark:bg-slate-700 text-stone-600'} font-serif font-bold flex items-center justify-center text-sm">
-          ${idx + 1}
+        <div class="w-8 h-8 rounded-xl ${!isUnlocked
+                ? 'bg-stone-200 dark:bg-stone-800 text-stone-400'
+                : isCurrent
+                    ? 'bg-[#C85A32] text-white'
+                    : isCompleted
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-stone-300 dark:bg-stone-700 text-stone-600'
+            } font-serif font-bold flex items-center justify-center text-xs">
+          ${!isUnlocked ? '<i class="fa-solid fa-lock text-[10px]"></i>' : isCompleted ? '<i class="fa-solid fa-check"></i>' : idx + 1}
         </div>
         <div>
-          <span class="text-[10px] font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wide">${lesson.topic}</span>
+          <span class="text-[10px] font-bold ${!isUnlocked
+                ? 'text-stone-400'
+                : isCompleted
+                    ? 'text-emerald-600 dark:text-emerald-400'
+                    : 'text-[#C85A32]'
+            } uppercase tracking-wide">
+            ${lesson.topic || `HARI ${lesson.day || idx + 1}`} ${!isUnlocked ? '• Terkunci' : isCompleted ? '• Selesai' : ''}
+          </span>
           <h4 class="text-sm font-bold text-stone-900 dark:text-stone-100 font-serif">${lesson.title}</h4>
         </div>
       </div>
-      <button onclick="startLesson(${idx})" class="px-4 py-2 bg-rose-700 text-white rounded-xl text-xs font-semibold hover:bg-rose-800 transition shadow-paper">
-        ${isCurrent ? 'Mulai Latihan' : 'Tinjau'}
+      <button onclick="${isUnlocked ? `startLesson(${idx})` : `alert('Selesaikan bab Hari ${idx} terlebih dahulu untuk membuka bab ini!')`}" 
+        class="px-3.5 py-1.5 ${!isUnlocked
+                ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed'
+                : isCurrent
+                    ? 'bg-[#C85A32] text-white'
+                    : isCompleted
+                        ? 'bg-stone-800 text-stone-200'
+                        : 'bg-stone-700 text-white'
+            } rounded-xl text-xs font-serif font-bold hover:opacity-90 transition btn-tactile">
+        ${!isUnlocked ? '<i class="fa-solid fa-lock text-[10px]"></i>' : isCurrent ? 'Lanjutkan' : isCompleted ? 'Ulangi' : 'Mulai'}
       </button>
     `;
         container.appendChild(div);
@@ -97,9 +161,14 @@ function renderRoadmap() {
 }
 
 function startLesson(idx) {
+    if (!isDayUnlocked(idx)) {
+        alert(`Selesaikan bab Hari ${idx} terlebih dahulu untuk membuka bab ini!`);
+        return;
+    }
     appState.currentLessonIndex = idx;
     appState.currentQuestionIndex = 0;
     appState.streak = 0;
+    saveUserProgress();
     updateStreakUI();
     loadCurrentQuestion();
     switchTab('practice');
@@ -110,20 +179,17 @@ function startLesson(idx) {
    ========================================================================== */
 function switchTab(tabName) {
     ['roadmap', 'practice', 'tutor', 'vault'].forEach(t => {
-        // 1. Sembunyikan semua tampilan tab
         const viewEl = document.getElementById(`view-${t}`);
         if (viewEl) {
             viewEl.classList.add('hidden');
             viewEl.classList.remove('tab-view-active');
         }
 
-        // 2. Reset Tombol Desktop (Aman & Kontras)
         const desktopBtn = document.getElementById(`tab-desktop-${t}`);
         if (desktopBtn) {
             desktopBtn.className = 'tab-desktop-btn flex-1 py-1.5 text-xs font-serif font-bold rounded-xl transition text-stone-500 hover:text-stone-900 dark:text-stone-300 dark:hover:text-white';
         }
 
-        // 3. Reset Tombol Mobile Bubble Nav
         const mobileBtn = document.getElementById(`tab-mobile-${t}`);
         if (mobileBtn) {
             mobileBtn.classList.remove('active');
@@ -132,7 +198,6 @@ function switchTab(tabName) {
         }
     });
 
-    // 4. Tampilkan View Aktif
     const activeView = document.getElementById(`view-${tabName}`);
     if (activeView) {
         activeView.classList.remove('hidden');
@@ -140,13 +205,11 @@ function switchTab(tabName) {
         activeView.classList.add('tab-view-active');
     }
 
-    // 5. Aktifkan Tombol Desktop
     const activeDesktopBtn = document.getElementById(`tab-desktop-${tabName}`);
     if (activeDesktopBtn) {
         activeDesktopBtn.className = 'tab-desktop-btn flex-1 py-1.5 text-xs font-serif font-bold rounded-xl transition bg-[#C85A32] text-white shadow-xs';
     }
 
-    // 6. Aktifkan Tombol Mobile
     const activeMobileBtn = document.getElementById(`tab-mobile-${tabName}`);
     if (activeMobileBtn) {
         activeMobileBtn.classList.add('active');
@@ -188,14 +251,14 @@ function renderVault() {
 
     appState.errorVault.forEach(err => {
         const card = document.createElement('div');
-        card.className = 'bg-stone-100/70 dark:bg-slate-800 p-4 rounded-2xl border border-stone-200 dark:border-slate-700 shadow-paper space-y-2';
+        card.className = 'bg-stone-100/70 dark:bg-stone-800 p-4 rounded-2xl border border-stone-200 dark:border-stone-700 shadow-sm space-y-2';
         card.innerHTML = `
       <div class="flex justify-between items-center text-[10px] text-stone-400 font-bold">
         <span>${err.track.toUpperCase()} • ${err.date}</span>
         <span class="text-amber-800 bg-amber-100 dark:bg-amber-950/40 px-2 py-0.5 rounded-full">Tinjauan</span>
       </div>
       <p class="text-sm font-bold font-serif text-stone-900 dark:text-stone-100">"${err.text}"</p>
-      <p class="text-xs text-stone-600 dark:text-stone-400 bg-stone-50 dark:bg-slate-900 p-2.5 rounded-xl border border-stone-200 dark:border-slate-800">${err.rule}</p>
+      <p class="text-xs text-stone-600 dark:text-stone-400 bg-stone-50 dark:bg-stone-900 p-2.5 rounded-xl border border-stone-200 dark:border-stone-800">${err.rule}</p>
     `;
         container.appendChild(card);
     });
@@ -210,7 +273,6 @@ function updateVaultCount() {
     const badgeMobile = document.getElementById('vaultBadgeMobile');
     if (badgeMobile) {
         badgeMobile.innerText = count;
-        // Hanya tampilkan lingkaran merah jika ada kesalahan (> 0)
         if (count > 0) {
             badgeMobile.classList.remove('hidden');
         } else {
@@ -257,165 +319,4 @@ function updateDailyGoalUI() {
     }
 }
 
-// Panggil fungsi ini saat halaman pertama kali dimuat
 window.addEventListener('DOMContentLoaded', updateDailyGoalUI);
-
-/* ==========================================================================
-   SCRIPT & NUMBERS INTERACTIVE REFERENCE MODAL
-   ========================================================================== */
-
-const scriptData = {
-    ja: {
-        hiragana: [
-            { char: 'あ', romaji: 'a' }, { char: 'い', romaji: 'i' }, { char: 'う', romaji: 'u' }, { char: 'え', romaji: 'e' }, { char: 'お', romaji: 'o' },
-            { char: 'か', romaji: 'ka' }, { char: 'き', romaji: 'ki' }, { char: 'く', romaji: 'ku' }, { char: 'け', romaji: 'ke' }, { char: 'こ', romaji: 'ko' },
-            { char: 'さ', romaji: 'sa' }, { char: 'し', romaji: 'shi' }, { char: 'す', romaji: 'su' }, { char: 'せ', romaji: 'se' }, { char: 'そ', romaji: 'so' },
-            { char: 'た', romaji: 'ta' }, { char: 'ち', romaji: 'chi' }, { char: 'つ', romaji: 'tsu' }, { char: 'て', romaji: 'te' }, { char: 'と', romaji: 'to' },
-            { char: 'な', romaji: 'na' }, { char: 'に', romaji: 'ni' }, { char: 'ぬ', romaji: 'nu' }, { char: 'ね', romaji: 'ne' }, { char: 'の', romaji: 'no' },
-            { char: 'は', romaji: 'ha' }, { char: 'ひ', romaji: 'hi' }, { char: 'ふ', romaji: 'fu' }, { char: 'へ', romaji: 'he' }, { char: 'ほ', romaji: 'ho' },
-            { char: 'ま', romaji: 'ma' }, { char: 'み', romaji: 'mi' }, { char: 'む', romaji: 'mu' }, { char: 'め', romaji: 'me' }, { char: 'も', romaji: 'mo' },
-            { char: 'や', romaji: 'ya' }, { char: 'ゆ', romaji: 'yu' }, { char: 'よ', romaji: 'yo' },
-            { char: 'ら', romaji: 'ra' }, { char: 'り', romaji: 'ri' }, { char: 'る', romaji: 'ru' }, { char: 'れ', romaji: 're' }, { char: 'ろ', romaji: 'ro' },
-            { char: 'わ', romaji: 'wa' }, { char: 'を', romaji: 'wo' }, { char: 'ん', romaji: 'n' }
-        ],
-        katakana: [
-            { char: 'ア', romaji: 'a' }, { char: 'イ', romaji: 'i' }, { char: 'ウ', romaji: 'u' }, { char: 'エ', romaji: 'e' }, { char: 'オ', romaji: 'o' },
-            { char: 'カ', romaji: 'ka' }, { char: 'キ', romaji: 'ki' }, { char: 'ク', romaji: 'ku' }, { char: 'ケ', romaji: 'ke' }, { char: 'コ', romaji: 'ko' },
-            { char: 'サ', romaji: 'sa' }, { char: 'シ', romaji: 'shi' }, { char: 'ス', romaji: 'su' }, { char: 'セ', romaji: 'se' }, { char: 'ソ', romaji: 'so' },
-            { char: 'タ', romaji: 'ta' }, { char: 'チ', romaji: 'chi' }, { char: 'ツ', romaji: 'tsu' }, { char: 'テ', romaji: 'te' }, { char: 'ト', romaji: 'to' },
-            { char: 'ナ', romaji: 'na' }, { char: 'ニ', romaji: 'ni' }, { char: 'ヌ', romaji: 'nu' }, { char: 'ネ', romaji: 'ne' }, { char: 'ノ', romaji: 'no' },
-            { char: 'ハ', romaji: 'ha' }, { char: 'ヒ', romaji: 'hi' }, { char: 'フ', romaji: 'fu' }, { char: 'ヘ', romaji: 'he' }, { char: 'ホ', romaji: 'ho' },
-            { char: 'マ', romaji: 'ma' }, { char: 'ミ', romaji: 'mi' }, { char: 'ム', romaji: 'mu' }, { char: 'メ', romaji: 'me' }, { char: 'モ', romaji: 'mo' },
-            { char: 'ヤ', romaji: 'ya' }, { char: 'ユ', romaji: 'yu' }, { char: 'ヨ', romaji: 'yo' },
-            { char: 'ラ', romaji: 'ra' }, { char: 'リ', romaji: 'ri' }, { char: 'ル', romaji: 'ru' }, { char: 'レ', romaji: 're' }, { char: 'ろ', romaji: 'ro' },
-            { char: 'ワ', romaji: 'wa' }, { char: 'ヲ', romaji: 'wo' }, { char: 'ン', romaji: 'n' }
-        ],
-        numbers: [
-            { char: '一', romaji: 'ichi (1)', audio: 'いち' },
-            { char: '二', romaji: 'ni (2)', audio: 'に' },
-            { char: '三', romaji: 'san (3)', audio: 'さん' },
-            { char: '四', romaji: 'yon (4)', audio: 'よん' },
-            { char: '五', romaji: 'go (5)', audio: 'ご' },
-            { char: '六', romaji: 'roku (6)', audio: 'ろく' },
-            { char: '七', romaji: 'nana (7)', audio: 'なな' },
-            { char: '八', romaji: 'hachi (8)', audio: 'はち' },
-            { char: '九', romaji: 'kyuu (9)', audio: 'きゅう' },
-            { char: '十', romaji: 'juu (10)', audio: 'じゅう' },
-            { char: '百', romaji: 'hyaku (100)', audio: 'ひゃく' },
-            { char: '千', romaji: 'sen (1000)', audio: 'せん' }
-        ]
-    },
-    en: {
-        alphabet: [
-            { char: 'A a', romaji: 'ei /eɪ/', audio: 'A' },
-            { char: 'B b', romaji: 'bee /biː/', audio: 'B' },
-            { char: 'C c', romaji: 'see /siː/', audio: 'C' },
-            { char: 'D d', romaji: 'dee /diː/', audio: 'D' },
-            { char: 'E e', romaji: 'ee /iː/', audio: 'E' },
-            { char: 'F f', romaji: 'ef /ɛf/', audio: 'F' },
-            { char: 'G g', romaji: 'jee /dʒiː/', audio: 'G' },
-            { char: 'H h', romaji: 'aych /eɪtʃ/', audio: 'H' },
-            { char: 'I i', romaji: 'eye /aɪ/', audio: 'I' },
-            { char: 'J j', romaji: 'jay /dʒeɪ/', audio: 'J' },
-            { char: 'K k', romaji: 'kay /keɪ/', audio: 'K' },
-            { char: 'L l', romaji: 'el /ɛl/', audio: 'L' },
-            { char: 'M m', romaji: 'em /ɛm/', audio: 'M' },
-            { char: 'N n', romaji: 'en /ɛn/', audio: 'N' },
-            { char: 'O o', romaji: 'oh /oʊ/', audio: 'O' },
-            { char: 'P p', romaji: 'pee /piː/', audio: 'P' },
-            { char: 'Q q', romaji: 'cue /kjuː/', audio: 'Q' },
-            { char: 'R r', romaji: 'ar /ɑːr/', audio: 'R' },
-            { char: 'S s', romaji: 'es /ɛs/', audio: 'S' },
-            { char: 'T t', romaji: 'tee /tiː/', audio: 'T' },
-            { char: 'U u', romaji: 'you /juː/', audio: 'U' },
-            { char: 'V v', romaji: 'vee /viː/', audio: 'V' },
-            { char: 'W w', romaji: 'double-u /ˈdʌbəl.juː/', audio: 'W' },
-            { char: 'X x', romaji: 'ex /ɛks/', audio: 'X' },
-            { char: 'Y y', romaji: 'why /waɪ/', audio: 'Y' },
-            { char: 'Z z', romaji: 'zee /ziː/', audio: 'Z' }
-        ],
-        numbers: [
-            { char: '1', romaji: 'One /wʌn/' }, { char: '2', romaji: 'Two /tuː/' }, { char: '3', romaji: 'Three /θriː/' }, { char: '4', romaji: 'Four /fɔːr/' },
-            { char: '5', romaji: 'Five /faɪv/' }, { char: '6', romaji: 'Six /sɪks/' }, { char: '7', romaji: 'Seven /ˈsɛv.ən/' }, { char: '8', romaji: 'Eight /eɪt/' },
-            { char: '9', romaji: 'Nine /naɪn/' }, { char: '10', romaji: 'Ten /tɛn/' }, { char: '1st', romaji: 'First /fɜːrst/' }, { char: '2nd', romaji: 'Second /ˈsɛk.ənd/' },
-            { char: '3rd', romaji: 'Third /θɜːrd/' }, { char: '4th', romaji: 'Fourth /fɔːrθ/' }, { char: '100', romaji: 'Hundred /ˈhʌn.drəd/' }, { char: '1000', romaji: 'Thousand /ˈθaʊ.zənd/' }
-        ],
-        days: [
-            { char: 'Mon', romaji: 'Monday /ˈmʌn.deɪ/' }, { char: 'Tue', romaji: 'Tuesday /ˈtjuːz.deɪ/' }, { char: 'Wed', romaji: 'Wednesday /ˈwɛnz.deɪ/' },
-            { char: 'Thu', romaji: 'Thursday /ˈθɜːrz.deɪ/' }, { char: 'Fri', romaji: 'Friday /ˈfraɪ.deɪ/' }, { char: 'Sat', romaji: 'Saturday /ˈsæt.ər.deɪ/' }, { char: 'Sun', romaji: 'Sunday /ˈsʌn.deɪ/' },
-            { char: 'Jan', romaji: 'January /ˈdʒæn.ju.ɛri/' }, { char: 'Feb', romaji: 'February /ˈfɛb.ru.ɛri/' }, { char: 'Mar', romaji: 'March /mɑːrtʃ/' }, { char: 'Apr', romaji: 'April /ˈeɪ.prəl/' },
-            { char: 'May', romaji: 'May /meɪ/' }, { char: 'Jun', romaji: 'June /dʒuːn/' }, { char: 'Jul', romaji: 'July /dʒuˈlaɪ/' }, { char: 'Aug', romaji: 'August /ˈɔː.ɡəst/' }
-        ]
-    }
-};
-
-let activeScriptTab = 'hiragana';
-
-function openScriptModal() {
-    const modal = document.getElementById('scriptModal');
-    if (!modal) return;
-
-    const track = appState.track;
-    activeScriptTab = track === 'ja' ? 'hiragana' : 'alphabet';
-
-    renderScriptTabs();
-    renderScriptContent();
-    modal.classList.remove('hidden');
-    document.body.classList.add('overflow-hidden');
-}
-
-function closeScriptModal() {
-    document.getElementById('scriptModal').classList.add('hidden');
-    document.body.classList.remove('overflow-hidden');
-}
-
-function renderScriptTabs() {
-    const container = document.getElementById('scriptModalTabs');
-    if (!container) return;
-    container.innerHTML = '';
-
-    const track = appState.track;
-    const tabs = track === 'ja'
-        ? [{ id: 'hiragana', label: 'Hiragana' }, { id: 'katakana', label: 'Katakana' }, { id: 'numbers', label: 'Angka & Kanji' }]
-        : [{ id: 'alphabet', label: 'Alphabet A-Z' }, { id: 'numbers', label: 'Numbers & Ordinals' }, { id: 'days', label: 'Days & Months' }];
-
-    tabs.forEach(t => {
-        const btn = document.createElement('button');
-        btn.className = `flex-1 py-1.5 rounded-xl transition ${activeScriptTab === t.id
-            ? 'bg-white dark:bg-stone-800 text-[#C85A32] shadow-xs'
-            : 'text-stone-500 hover:text-stone-800'}`;
-        btn.innerText = t.label;
-        btn.onclick = () => {
-            activeScriptTab = t.id;
-            renderScriptTabs();
-            renderScriptContent();
-        };
-        container.appendChild(btn);
-    });
-}
-
-function renderScriptContent() {
-    const container = document.getElementById('scriptModalContent');
-    if (!container) return;
-
-    const items = scriptData[appState.track]?.[activeScriptTab] || [];
-    container.innerHTML = '';
-
-    const grid = document.createElement('div');
-    grid.className = 'grid grid-cols-4 sm:grid-cols-5 gap-2';
-
-    items.forEach(item => {
-        const card = document.createElement('button');
-        card.className = 'p-2.5 bg-white dark:bg-stone-800 rounded-2xl border border-[#E6E1D7] dark:border-stone-700 flex flex-col items-center justify-center hover:border-[#C85A32] transition btn-tactile shadow-xs';
-
-        card.onclick = () => playAudioText(item.audio || item.char, appState.track);
-
-        card.innerHTML = `
-      <span class="text-lg font-serif font-bold text-[#2D2A26] dark:text-stone-100">${item.char}</span>
-      <span class="text-[9px] font-mono text-stone-400 mt-0.5 truncate w-full text-center">${item.romaji}</span>
-    `;
-        grid.appendChild(card);
-    });
-
-    container.appendChild(grid);
-}
